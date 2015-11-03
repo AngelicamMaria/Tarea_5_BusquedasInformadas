@@ -53,16 +53,144 @@ class Lights_out(ProblemaBusqueda):
     def __init__(self, pos_inicial):
         # ¡El formato y lo que lleva la inicialización de 
         # la super hay que cambiarlo al problema!
-        #super(Lights_out, self).__init__(s0, meta)
-        raise NotImplementedError('Hay que hacerlo de tarea')
+        self. meta= (0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0)
+        super(Lights_out, self).__init__(pos_inicial, lambda s0: s0 == meta)
+
+        #raise NotImplementedError('Hay que hacerlo de tarea')
 
     def acciones_legales(self, estado):
-        raise NotImplementedError('Hay que hacerlo de tarea')
+        '''
+        Debido a que es un cuadro 5 x 5 hay 25 acciones legales.  
+        Por lo tanto, se regresa un numero entre 0 y 24.
+        '''
+        return range(25)
+        #raise NotImplementedError('Hay que hacerlo de tarea')
 
     def sucesor(self, estado, accion):
-        raise NotImplementedError('Hay que hacerlo de tarea')
+        if estado[accion]== 0:
+            estado[accion]=1
+        else:
+            estado[accion]=0
+        #en caso que sea el primer renglon.
+        if accion > 0 and accion <4:
+            if estado[accion-1]==0:
+                estado[accion-1]=1
+            else:
+                estado[accion-1]=0
+            if estado[accion+1]==0:
+                estado[accion+1]=1
+            else:
+                estado[accion+1]=0
+            if estado[accion+5]==0:
+                estado[accion+5]=1
+            else:
+                estado[accion+5]=0
+            return 
+        #en caso que sean las esquinas. 
+        if accion == 0 or accion == 4 or accion == 20 or accion == 24:
+            if accion == 0:
+                if estado[accion+5] == 1:
+                    estado[accion+5]=0
+                else:
+                    estado[accion+5]=1
+                if estado[accion+1] == 1:
+                    estado[accion+1]=0
+                else:
+                    estado[accion+1]=1
+            if accion == 4:
+                if estado[accion+5] == 1:
+                    estado[accion+5]=0
+                else:
+                    estado[accion+5]=1
+                if estado[accion-1] == 1:
+                    estado[accion-1]=0
+                else:
+                    estado[accion-1]=1
+            if accion == 20:
+                if estado[accion-5] == 1:
+                    estado[accion-5]=0
+                else:
+                    estado[accion-5]=1
+                if estado[accion+1] == 1:
+                    estado[accion+1]=0
+                else:
+                    estado[accion+1]=1
+            if accion == 24:
+                if estado[accion-5] == 1:
+                    estado[accion-5]=0
+                else:
+                    estado[accion-5]=1
+                if estado[accion-1] == 1:
+                    estado[accion-1]=0
+                else:
+                    estado[accion-1]=1
+            return             
+        #en caso que sea el ultimo renglon
+        if accion >20 and accion <24:
+            if estado[accion-5] == 1:
+                    estado[accion-5]=0
+                else:
+                    estado[accion-5]=1
+                if estado[accion-1] == 1:
+                    estado[accion-1]=0
+                else:
+                    estado[accion-1]=1
+                if estado[accion+1] == 1:
+                    estado[accion+1]=0
+                else:
+                    estado[accion+1]=1
+            return 
+        #en caso que sea la primera  y ultima columna.
+        if accion == (5 or 10 or 15 or 9 or 14 or 19):
+            if estado[accion-5]==0:
+                estado[accion-5]=1
+            else:
+                estado[accion+5]=0
+            if estado[accion+5]==0:
+                estado[accion+5]=1
+            else:
+                estado[accion+5]=0
+            if accion == (5 or 10 or 15):
+                if estado[accion+1]==0:
+                    estado[accion+1]=1
+                else:
+                    estado[accion+1]=0
+            if accion == (9 or 14 or 19):    
+                if estado[accion-1]==0:
+                    estado[accion-1]=1
+                else:
+                    estado[accion-1]=0
+            return
+        #en caso que sea un numero que no esta tocando las esquinas.
+        else:
+        if estado[accion-5]==0:
+                estado[accion-5]=1
+            else:
+                estado[accion+5]=0
+            if estado[accion+5]==0:
+                estado[accion+5]=1
+            else:
+                estado[accion+5]=0
+            
+            if estado[accion+1]==0:
+                estado[accion+1]=1
+            else:
+                estado[accion+1]=0
+            if estado[accion-1]==0:
+                estado[accion-1]=1
+            else:
+                estado[accion-1]=0
+        return         
+
+
+        #raise NotImplementedError('Hay que hacerlo de tarea')
 
     def costo_local(self, estado, accion):
+        costo = 
         raise NotImplementedError('Hay que hacerlo de tarea')
 
     @staticmethod
