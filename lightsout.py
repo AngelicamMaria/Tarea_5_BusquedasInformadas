@@ -53,11 +53,7 @@ class Lights_out(ProblemaBusqueda):
     def __init__(self, pos_inicial):
         # ¡El formato y lo que lleva la inicialización de 
         # la super hay que cambiarlo al problema!
-        self. meta= tuple(0, 0, 0, 0, 0,
-                     0, 0, 0, 0, 0,
-                     0, 0, 0, 0, 0,
-                     0, 0, 0, 0, 0,
-                     0, 0, 0, 0, 0)
+        self. meta= tuple([0 for i in range(25)])
         super(Lights_out, self).__init__(pos_inicial, lambda s0: s0 == meta)
 
         #raise NotImplementedError('Hay que hacerlo de tarea')
@@ -71,11 +67,16 @@ class Lights_out(ProblemaBusqueda):
         #raise NotImplementedError('Hay que hacerlo de tarea')
 
     def sucesor(self, estado, accion):
+        
+        print 'estado',estado
+        print 'Accion',accion
+        print 'estado accion ',estado[accion]
+        
         if estado[accion]== 0:
             estado[accion]=1
         else:
             estado[accion]=0
-        
+        '''
         #en caso que sea el primer renglon.
         if accion > 0 and accion <4:
             if estado[accion-1]==0:
@@ -187,7 +188,7 @@ class Lights_out(ProblemaBusqueda):
                 estado[accion-1]=0
         return         
 
-
+        '''
         #raise NotImplementedError('Hay que hacerlo de tarea')
 
     def costo_local(self, estado, accion):
