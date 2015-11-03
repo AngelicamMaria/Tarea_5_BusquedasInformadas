@@ -53,7 +53,7 @@ class Lights_out(ProblemaBusqueda):
     def __init__(self, pos_inicial):
         # ¡El formato y lo que lleva la inicialización de 
         # la super hay que cambiarlo al problema!
-        self. meta= (0, 0, 0, 0, 0,
+        self. meta= tuple(0, 0, 0, 0, 0,
                      0, 0, 0, 0, 0,
                      0, 0, 0, 0, 0,
                      0, 0, 0, 0, 0,
@@ -75,6 +75,7 @@ class Lights_out(ProblemaBusqueda):
             estado[accion]=1
         else:
             estado[accion]=0
+        
         #en caso que sea el primer renglon.
         if accion > 0 and accion <4:
             if estado[accion-1]==0:
@@ -133,16 +134,16 @@ class Lights_out(ProblemaBusqueda):
         if accion >20 and accion <24:
             if estado[accion-5] == 1:
                     estado[accion-5]=0
-                else:
-                    estado[accion-5]=1
-                if estado[accion-1] == 1:
-                    estado[accion-1]=0
-                else:
-                    estado[accion-1]=1
-                if estado[accion+1] == 1:
-                    estado[accion+1]=0
-                else:
-                    estado[accion+1]=1
+            else:
+                estado[accion-5]=1
+            if estado[accion-1] == 1:
+                estado[accion-1]=0
+            else:
+                estado[accion-1]=1
+            if estado[accion+1] == 1:
+                estado[accion+1]=0
+            else:
+                estado[accion+1]=1
             return 
         #en caso que sea la primera  y ultima columna.
         if accion == (5 or 10 or 15 or 9 or 14 or 19):
@@ -167,7 +168,7 @@ class Lights_out(ProblemaBusqueda):
             return
         #en caso que sea un numero que no esta tocando las esquinas.
         else:
-        if estado[accion-5]==0:
+            if estado[accion-5]==0:
                 estado[accion-5]=1
             else:
                 estado[accion+5]=0
@@ -190,7 +191,18 @@ class Lights_out(ProblemaBusqueda):
         #raise NotImplementedError('Hay que hacerlo de tarea')
 
     def costo_local(self, estado, accion):
-        costo = 
+        costo = 0
+        for i in range(25):
+            if estado[i]==1:
+                costo += 1
+        print 'csoto 1', costo
+        costo2=0
+        sucesor(estado, accion)
+        for i in range(25):
+            if estado[i]==1:
+                costo2 += 1
+        print 'csoto 2', costo2
+        return costo
         raise NotImplementedError('Hay que hacerlo de tarea')
 
     @staticmethod
