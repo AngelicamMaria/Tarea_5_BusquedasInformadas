@@ -190,7 +190,7 @@ def h_2(nodo):
 
     Asi que la huristica cuenta los cuadros que se veran afectados con la accion.
     Esta heuristica tiene como objetivo decir la accion mas efectiva para que se apagen mas cuadros.
-    Con cada cuadro prendido que este revisado se suma 2.5, incluyendo el cuadro, pero este suma 1.
+    Con cada cuadro prendido que este revisado se suma 2.5, incluyendo el cuadro selecionado, pero este suma 1.
     """
     costo_total=0
     i = 0
@@ -200,16 +200,16 @@ def h_2(nodo):
             costo_total=costo_total+1
         if (i+5)<25: #con esto, quiere decir que tiene un cuadro abajo.
             if nodo.estado[i]==1:
-                costo_total=costo_total+ 2.5
+                costo_total=costo_total+ 0.5
         if (i-5)>-1: #con esto se revisa el cuadro de arriba
             if nodo.estado[i]==1:
-                costo_total=costo_total+2.5
+                costo_total=costo_total+0.5
         if i!=0 and i!=5 and i!=10 and i!=15 and i!=10: #con esto se dice que no es cuadro de las columnas 0 y 4
             if nodo.estado[i-1]==1:
-                costo_total = costo_total+2.5
+                costo_total = costo_total+0.5
         if i!=4 and i!=9 and i!=14 and i!=19 and i!=24: #con esto se dice que no es cuadro de las columnas 0 y 4
             if nodo.estado[i+1]==1:
-                costo_total = costo_total+2.5      
+                costo_total = costo_total+0.5      
 
     return costo_total
 '''
