@@ -268,17 +268,18 @@ def busqueda_A_estrella(problema, heuristica):
         prueba=prueba+1
         if problema.es_meta(nodo.estado):
             nodo.nodos_visitados = problema.num_nodos
-            print problema.num_nodos
-            return nodo, problema.num_nodos
+            bonito(nodo.estado)
+            return nodo, problema.num_nodos, nodo.costo
         for hijo in nodo.expande(problema):
             #print "Estado : ",hijo.estado
             if(prueba==10000 and j ==0):
                 print "estado del hijo10 mil"
                 j = j +10001
+                bonito(hijo.estado)
             if hijo.estado not in visitados or visitados[hijo.estado] > hijo.costo:
-                heapq.heappush(frontera, (hijo.costo + heuristica(hijo), hijo))
+                heapq.heappush(frontera, (hijo.costo + heuristica(hijo), hijo))   
                 visitados[hijo.estado] = hijo.costo
-    return nodo, problema.num_nodos
+    return nodo, problema.num_nodos, nodo.costo
 def sucesor(estado, accion):
         estado3 = list(estado)
         if estado3[accion] == 0:
@@ -315,4 +316,18 @@ def sucesor(estado, accion):
                 estado3[accion-1]=0
         
         return tuple(estado3)   
-       
+def bonito(estado):
+        """
+        El prettyprint de un estado dado
+
+        """
+        cadena = "---------------------\n"
+        for i in range(5):
+            for j in range(5):
+                if estado[5 * i + j]:
+                    cadena += "| X "
+                else:
+                    cadena += "|   "
+            cadena += "|\n---------------------\n"
+        print cadena
+        #return cadena

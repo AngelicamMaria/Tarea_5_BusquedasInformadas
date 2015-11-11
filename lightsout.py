@@ -190,7 +190,7 @@ def h_2(nodo):
 
     Asi que la huristica cuenta los cuadros que se veran afectados con la accion.
     Esta heuristica tiene como objetivo decir la accion mas efectiva para que se apagen mas cuadros.
-    Con cada cuadro prendido que este revisado se suma 1/25, incluyendo el cuadro
+    Con cada cuadro prendido que este revisado se suma 2.5, incluyendo el cuadro, pero este suma 1.
     """
     costo_total=0
     i = 0
@@ -200,16 +200,16 @@ def h_2(nodo):
             costo_total=costo_total+1
         if (i+5)<25: #con esto, quiere decir que tiene un cuadro abajo.
             if nodo.estado[i]==1:
-                costo_total=costo_total+ 1
+                costo_total=costo_total+ 2.5
         if (i-5)>-1: #con esto se revisa el cuadro de arriba
             if nodo.estado[i]==1:
-                costo_total=costo_total+1
+                costo_total=costo_total+2.5
         if i!=0 and i!=5 and i!=10 and i!=15 and i!=10: #con esto se dice que no es cuadro de las columnas 0 y 4
             if nodo.estado[i-1]==1:
-                costo_total = costo_total+1
+                costo_total = costo_total+2.5
         if i!=4 and i!=9 and i!=14 and i!=19 and i!=24: #con esto se dice que no es cuadro de las columnas 0 y 4
             if nodo.estado[i+1]==1:
-                costo_total = costo_total+1      
+                costo_total = costo_total+2.5      
 
     return costo_total
 '''
@@ -303,23 +303,6 @@ def prueba_clase():
             1, 1, 1, 1, 1,
             1, 1, 1, 1, 1,
             1, 1, 1, 1, 1)
-    for i in range(25): #25 acciones
-        pos_a=entorno.sucesor(pos_a,i) #se envia para sacar el sucesor con la primera accion
-        if pos_a[i]==1:
-            costo_total=costo_total+0.04
-        if (i+5)<25: #con esto, quiere decir que tiene un cuadro abajo.
-            if pos_a[i]==1:
-                costo_total=costo_total+ 0.04
-        if (i-5)>-1: #con esto se revisa el cuadro de arriba
-            if pos_a[i]==1:
-                costo_total=costo_total+ 0.04
-        if i!=0 and i!=5 and i!=10 and i!=15 and i!=20: #con esto se dice que no es cuadro de las columnas 0 y 4
-            if pos_a[i-1]==1:
-                costo_total = costo_total+0.04
-        if i!=4 and i!=9 and i!=14 and i!=19 and i!=24: #con esto se dice que no es cuadro de las columnas 0 y 4
-            if pos_a[i+1]==1:
-                costo_total = costo_total+0.04
-
 
 def prueba_busqueda(pos_inicial, metodo, heuristica=None, max_prof=None):
     """
@@ -356,22 +339,20 @@ def compara_metodos(pos_inicial, heuristica_1, heuristica_2):
     #n1 = prueba_busqueda(pos_inicial, busqueda_ancho)
     #n2 = prueba_busqueda(pos_inicial, busqueda_profundidad_iterativa)
     #n3 = prueba_busqueda(pos_inicial, busqueda_costo_uniforme)
-
+    
+    
     
     print '\n\n' + '-' * 50
     print 'Método'.center(10) + 'Costo de la solucion'.center(20) + 'Nodos explorados'.center(20)
-    n4, nodosss = prueba_busqueda(pos_inicial, busqueda_A_estrella, heuristica_1)
-    print 'A* con h1'.center(10) + str(n4.costo).center(20) + str(nodosss)
-    Imprimir_Estado(n4.estado)
-    n5, nodosss2 = prueba_busqueda(pos_inicial, busqueda_A_estrella, heuristica_2)
-    print 'A* con h2'.center(10) + str(n5.costo).center(20) + str(nodosss2)
-    Imprimir_Estado(n5.estado)
     #print '-' * 50
     #print 'BFS'.center(10) + str(n1.costo).center(20) + str(n1.nodos_visitados)
     #print 'IDS'.center(10) + str(n2.costo).center(20) + str(n2.nodos_visitados)
     #print 'UCS'.center(10) + str(n3.costo).center(20) + str(n3.nodos_visitados)
-   
+    n4, nodosss,costo1 = prueba_busqueda(pos_inicial, busqueda_A_estrella, heuristica_1)
+    print 'A* con h1'.center(10) + str(costo1).center(20) + str(nodosss)
     #print str(n4.nodos_visitados)
+    n5, nodosss2,costo2 = prueba_busqueda(pos_inicial, busqueda_A_estrella, heuristica_2)
+    print 'A* con h2'.center(10) + str(costo2).center(20) + str(nodosss2)
     #print ''
     #print '-' * 50 + '\n\n'
     
