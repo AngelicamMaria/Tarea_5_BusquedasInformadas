@@ -190,7 +190,7 @@ def h_2(nodo):
 
     Asi que la huristica cuenta los cuadros que se veran afectados con la accion.
     Esta heuristica tiene como objetivo decir la accion mas efectiva para que se apagen mas cuadros.
-    Con cada cuadro prendido que este revisado se suma 2.5, incluyendo el cuadro selecionado, pero este suma 1.
+    Con cada cuadro prendido que este revisado se suma 0.5, incluyendo el cuadro selecionado, pero este suma 1.
     """
     costo_total=0
     i = 0
@@ -228,8 +228,7 @@ sea el costo quiere decir que tiene menos luces encendidas.
 El otro regresa solamente los cuadros afectados por la accion. Mientras menos grande sea el costo quiere decir
 que las acciones encendieron pocas luces. 
 
-Asi que pienso que la heuristica 2, es mejor. Ya que tomar en cuenta las acciones que prenden menos luces, seria veneficioso
-Claro, pensando que el cuadro selecionando se enciende o apaga.
+Asi que pienso que la heuristica 2, es mejor. Ya que tomar en cuenta las acciones que prenden menos luces, seri[ia bueno.
 '''
 
 def prueba_clase():
