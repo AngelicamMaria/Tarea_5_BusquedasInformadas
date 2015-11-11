@@ -246,7 +246,7 @@ def busqueda_costo_uniforme(problema):
 
 def busqueda_A_estrella(problema, heuristica):
     """
-    Búsqueda A*
+    #Búsqueda A*
 
     @param problema: Un objeto de una clase heredada de ProblemaBusqueda
     @param heuristica: Una funcion de heuristica, esto es, una función heuristica(nodo), la cual devuelva
@@ -254,9 +254,65 @@ def busqueda_A_estrella(problema, heuristica):
                        objetivo.
 
     @return Un objeto tipo Nodo con la estructura completa
-
-    
     """
-    raise NotImplementedError('Hay que hacerlo de tarea (problema 2 en el archivo busquedas.py)')
+    frontera = []
+    nodo = Nodo(problema.s0)
+    heapq.heappush(frontera,(0 +heuristica(nodo)))
+    heapq.heappush(frontera, (0 + heuristica(nodo), nodo))
+    visitados = {problema.s0: 0}
+    prueba=0
+    j = 0 
+    t = 0 
+    while frontera and prueba<10000:
+        heapq.heappop(frontera)
+        prueba=prueba+1
+        if problema.es_meta(nodo.estado):
+            nodo.nodos_visitados = problema.num_nodos
+            print problema.num_nodos
+            return nodo, problema.num_nodos
+        for hijo in nodo.expande(problema):
+            #print "Estado : ",hijo.estado
+            if(prueba==10000 and j ==0):
+                print "estado del hijo10 mil"
+                j = j +10001
+            if hijo.estado not in visitados or visitados[hijo.estado] > hijo.costo:
+                heapq.heappush(frontera, (hijo.costo + heuristica(hijo), hijo))
+                visitados[hijo.estado] = hijo.costo
+    return nodo, problema.num_nodos
+def sucesor(estado, accion):
+        estado3 = list(estado)
+        if estado3[accion] == 0:
+            estado3[accion] = 1
+        else:
+            estado3[accion]=0
 
-
+        #Numero de arriba y abajo
+        if (accion-5)> -1:
+            #print 'Segundo if'
+            if estado3[accion-5]== 0:
+                estado3[accion-5]=1
+            else:
+                estado3[accion-5]=0
+        if (accion+5)< 25:
+            #print 'Tercer if'
+            if estado3[accion+5]== 0:
+                estado3[accion+5]=1
+            else:
+                estado3[accion+5]=0
+        #Derecha y izquerda
+        if accion !=4 and accion !=9 and accion !=14 and  accion !=19 and accion !=24:
+            #print 'Cuarto if'
+            if estado3[accion+1]== 0:
+                estado3[accion+1]=1
+            else:
+                estado3[accion+1]=0
+            
+        if accion!=0 and  accion !=5 and accion !=10 and accion !=15 and accion !=20:
+            #print 'Quinto if'
+            if estado3[accion-1]== 0:
+                estado3[accion-1]=1
+            else:
+                estado3[accion-1]=0
+        
+        return tuple(estado3)   
+       
